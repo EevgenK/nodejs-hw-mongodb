@@ -1,4 +1,5 @@
 import { model, Schema } from 'mongoose';
+import createHttpError from 'http-errors';
 const contactsSchema = new Schema(
   {
     name: {
@@ -27,4 +28,7 @@ const contactsSchema = new Schema(
     versionKey: false,
   },
 );
+contactsSchema.post('save', (error, data, next) => {
+  throw createHttpError(400, `${error.message}`);
+});
 export const ContactsCollection = model('contacts', contactsSchema);
