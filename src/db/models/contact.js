@@ -1,5 +1,7 @@
 import { model, Schema } from 'mongoose';
 import createHttpError from 'http-errors';
+import { validationParams } from '../../validation/contacts.js';
+
 const contactsSchema = new Schema(
   {
     name: {
@@ -19,7 +21,7 @@ const contactsSchema = new Schema(
     contactType: {
       type: String,
       required: true,
-      enum: ['work', 'home', 'personal'],
+      enum: validationParams.contactTypes,
       default: 'personal',
     },
   },
