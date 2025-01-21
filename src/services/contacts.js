@@ -1,6 +1,8 @@
+import createHttpError from 'http-errors';
 import { SORT_ORDER } from '../constants/index.js';
 import { ContactsCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
+import { validatePagination } from '../validation/validatePagination.js';
 
 export const getAllContacts = async ({
   page = 1,
@@ -21,26 +23,35 @@ export const getAllContacts = async ({
     contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
 
-  /*const contactsCount = await ContactsCollection.find()
+  const contactsCount = await ContactsCollection.find()
     .merge(contactsQuery)
     .countDocuments();
-
+  validatePagination(contactsCount, perPage, page);
   const contacts = await contactsQuery
     .skip(skip)
     .limit(limit)
     .sort({ [sortBy]: sortOrder })
     .exec();
-*/
+
   /*USING PROMISE ALL instead of 2 async fn, for to optimize loading */
-  const [contactsCount, contacts] = await Promise.all([
-    ContactsCollection.find().merge(contactsQuery).countDocuments(),
-    contactsQuery
-      .skip(skip)
-      .limit(limit)
-      .sort({ [sortBy]: sortOrder })
-      .exec(),
-  ]);
+
+  // const [contactsCount, contacts] = await Promise.all([
+  //   ContactsCollection.find().merge(contactsQuery).countDocuments(),
+  //   contactsQuery
+  //     .skip(skip)
+  //     .limit(limit)
+  //     .sort({ [sortBy]: sortOrder })
+  //     .exec(),
+  // ]);
+  // validatePagination(contactsCount, perPage, page);
+
   const paginationData = calculatePaginationData(contactsCount, perPage, page);
+  if (page > paginationData.totalPages || page < 1) {
+    throw createHttpError(
+      400,
+      `Page request cannot be more than an amount of "totalPages": ${paginationData.totalPages}`,
+    );
+  }
   return { data: contacts, ...paginationData };
 };
 export const getContactById = async (contactId) => {
