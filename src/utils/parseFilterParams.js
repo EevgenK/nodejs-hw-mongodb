@@ -1,4 +1,4 @@
-import { validationParams } from '../validation/contacts.js';
+import { validationParams } from '../validation/validationCommonParams.js';
 
 const parseType = (type, array) => {
   const isString = typeof type === 'string';

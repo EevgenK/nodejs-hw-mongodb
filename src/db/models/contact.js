@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 import createHttpError from 'http-errors';
-import { validationParams } from '../../validation/contacts.js';
+import { validationParams } from '../../validation/validationCommonParams.js';
 
 const contactsSchema = new Schema(
   {
