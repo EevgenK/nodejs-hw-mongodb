@@ -24,6 +24,11 @@ const contactsSchema = new Schema(
       enum: validationParams.contactTypes,
       default: 'personal',
     },
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'users',
+      required: true,
+    },
   },
   {
     timestamps: true,
