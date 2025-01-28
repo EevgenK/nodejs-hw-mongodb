@@ -10,11 +10,12 @@ export const getAllContacts = async ({
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   filter = {},
+  userId,
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
-
-  const contactsQuery = ContactsCollection.find();
+  const query = userId ? { userId } : {};
+  const contactsQuery = ContactsCollection.find(query);
 
   if (filter.contactType) {
     contactsQuery.where('contactType').equals(filter.contactType);

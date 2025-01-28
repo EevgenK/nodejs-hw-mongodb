@@ -9,10 +9,12 @@ import createHttpError from 'http-errors';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { ROLES } from '../constants/index.js';
 
 export const getContactsController = async (req, res, next) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
+  const { _id: userId, role } = req.user;
   const filter = parseFilterParams(req.query);
 
   const contacts = await getAllContacts({
@@ -21,6 +23,7 @@ export const getContactsController = async (req, res, next) => {
     sortBy,
     sortOrder,
     filter,
+    userId: role === ROLES.USER ? userId : undefined,
   });
   res.json({
     status: 200,
@@ -43,7 +46,9 @@ export const getContactByIdController = async (req, res, next) => {
 };
 
 export const createContactController = async (req, res, next) => {
-  const contact = await createContact(req.body);
+  const { _id: userId } = req.user;
+  const contact = await createContact({ ...req.body, userId });
+
   res.json({
     status: 201,
     message: 'Successfully created a contact!',

@@ -9,7 +9,13 @@ export const errorHandler = (err, req, res, next) => {
     });
     return;
   }
-
+  // if (err.isJoi) {
+  //   return res.status(400).json({
+  //     status: 400,
+  //     message: 'Joi error',
+  //     data: err.details,
+  //   });
+  // }
   res.status(500).json({
     status: 500,
     message: 'Something went wrong',
