@@ -15,6 +15,7 @@ export const getAllContacts = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
   const query = userId ? { userId } : {};
+
   const contactsQuery = ContactsCollection.find(query);
 
   const count = await ContactsCollection.find(query);
@@ -60,36 +61,38 @@ export const getAllContacts = async ({
   }
   return { data: contacts, ...paginationData };
 };
-export const getContactById = async (contactId) => {
-  const contacts = await ContactsCollection.findById(contactId);
+export const getContactById = async (contactId, userId) => {
+  const query = { _id: contactId, userId };
+  const contacts = await ContactsCollection.findOne(query);
   return contacts;
 };
-export const createContact = async (payload) => {
-  const contact = await ContactsCollection.create(payload);
+export const createContact = async (payload, userId) => {
+  const contact = await ContactsCollection.create({ ...payload, userId });
   return contact;
 };
 
-export const deleteContactById = async (contactId) => {
+export const deleteContactById = async (contactId, userId) => {
   try {
-    const contact = await ContactsCollection.findOneAndDelete({
-      _id: contactId,
-    });
+    const query = { _id: contactId, userId };
+    const contact = await ContactsCollection.findOneAndDelete(query);
     return contact;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updateContact = async (contactId, payload, options = {}) => {
-  const rawResult = await ContactsCollection.findOneAndUpdate(
-    { _id: contactId },
-    payload,
-    {
-      new: true,
-      includeResultMetadata: true,
-      ...options,
-    },
-  );
+export const updateContact = async (
+  userId,
+  contactId,
+  payload,
+  options = {},
+) => {
+  const query = { _id: contactId, userId };
+  const rawResult = await ContactsCollection.findOneAndUpdate(query, payload, {
+    new: true,
+    includeResultMetadata: true,
+    ...options,
+  });
   if (!rawResult || !rawResult.value) return null;
   return {
     contact: rawResult.value,
