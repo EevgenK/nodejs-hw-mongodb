@@ -20,16 +20,19 @@ export const checkRoles =
 
     if (roles.includes(ROLES.USER) && role === ROLES.USER) {
       const { contactId } = req.params;
-      if (!contactId) {
-        next(createHttpError(403));
-        return;
-      }
+      // if (!contactId) {
+      //   next(createHttpError(403));
+      //   return;
+      // }
 
       const contact = await ContactsCollection.findOne({
         _id: contactId,
         userId: user._id,
       });
-
+      if (!contact) {
+        next(createHttpError(404));
+        return;
+      }
       if (contact) {
         next();
         return;
