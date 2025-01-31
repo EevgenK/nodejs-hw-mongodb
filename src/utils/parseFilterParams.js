@@ -6,8 +6,16 @@ const parseType = (type, array) => {
   const isTypeOf = (type) => array.includes(type);
   if (isTypeOf(type)) {
     return type;
+  } else {
+    return null;
   }
 };
+/*
+One more parse for Boolean
+const pasreBoolean = (str) => {
+  if (['true', 'false'].includes(str)) return JSON.parse(str);
+};
+*/
 const isFavouriteValues = ['true', 'false'];
 const contactTypeValues = validationParams.contactTypes;
 

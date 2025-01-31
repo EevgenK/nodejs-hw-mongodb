@@ -17,22 +17,20 @@ export const getAllContacts = async ({
   const query = userId ? { userId } : {};
 
   const contactsQuery = ContactsCollection.find(query);
-
-  const count = await ContactsCollection.find(query);
-  if (count.length <= 0) {
-    return [];
-  }
-
-  if (filter.contactType) {
+  if (filter.contactType || filter.contactType === null) {
     contactsQuery.where('contactType').equals(filter.contactType);
   }
-  if (filter.isFavourite) {
+  if (filter.isFavourite || filter.isFavourite === null) {
     contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
 
   const contactsCount = await ContactsCollection.find()
     .merge(contactsQuery)
     .countDocuments();
+
+  if (contactsCount <= 0) {
+    return [];
+  }
   validatePagination(contactsCount, perPage, page);
   const contacts = await contactsQuery
     .skip(skip)
