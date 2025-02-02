@@ -2,9 +2,9 @@ import Joi from 'joi';
 
 const validationParams = {
   min: 3,
-  max: 20,
+  max: 40 /*change to 20 after the test*/,
   minDomainSegments: 2,
-  allowedTlds: ['com', 'net'],
+  allowedTlds: ['com', 'net', 'ua'],
   contactTypes: ['work', 'home', 'personal'],
   stringTypeMessageGenerator(el) {
     return {
