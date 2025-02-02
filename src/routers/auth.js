@@ -41,7 +41,7 @@ router.post(
 );
 
 router.post(
-  '/reset-email',
+  '/reset-email' /*change*/,
   validateBody(resetPasswordSchema),
   ctrlWrapper(resetPasswordController),
 );

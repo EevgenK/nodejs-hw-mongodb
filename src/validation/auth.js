@@ -21,5 +21,5 @@ export const requestResetEmailSchema = Joi.object({
 
 export const resetPasswordSchema = Joi.object({
   password: createCommonStringValidation('password', 'required'),
-  token: createCommonStringValidation('token', 'required'),
+  token: Joi.string().required(),
 });
