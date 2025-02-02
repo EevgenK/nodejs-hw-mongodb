@@ -18,3 +18,8 @@ export const loginUserSchema = Joi.object({
 export const requestResetEmailSchema = Joi.object({
   email: createEmailValidation('required'),
 });
+
+export const resetPasswordSchema = Joi.object({
+  password: createCommonStringValidation('password', 'required'),
+  token: createCommonStringValidation('token', 'required'),
+});

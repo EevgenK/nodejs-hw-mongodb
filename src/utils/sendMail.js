@@ -5,7 +5,6 @@ import { getEnvVar } from './getEnvVar.js';
 const transporter = nodemailer.createTransport({
   host: getEnvVar(SMTP.SMTP_HOST),
   port: Number(getEnvVar(SMTP.SMTP_PORT)),
-  // secure: false,
   //secure: false, // true for port 465, false for other ports
   // secure: false,
   auth: {
@@ -13,7 +12,7 @@ const transporter = nodemailer.createTransport({
     pass: getEnvVar(SMTP.SMTP_PASSWORD),
   },
 });
-
+/*Checking errors in transporter*/
 // transporter.verify(function (error, success) {
 //   if (error) {
 //     console.log('ПОМИЛКА-', error);
