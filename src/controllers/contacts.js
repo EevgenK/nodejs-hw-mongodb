@@ -9,7 +9,8 @@ import createHttpError from 'http-errors';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
-import { getFileUrl } from '../utils/getFileUrl.js';
+import { getFileUrlByFeatureFlag } from '../utils/getFileUrlByFeatureFlag.js';
+
 // import { ROLES } from '../constants/index.js';
 
 export const getContactsController = async (req, res, next) => {
@@ -50,7 +51,7 @@ export const getContactByIdController = async (req, res, next) => {
 export const createContactController = async (req, res, next) => {
   const { _id: userId } = req.user;
   const photo = req.file;
-  const photoUrl = await getFileUrl(photo);
+  const photoUrl = await getFileUrlByFeatureFlag(photo, 'ENABLE_CLOUDINARY');
   const contact = await createContact({ ...req.body, photo: photoUrl }, userId);
   res.json({
     status: 201,
@@ -73,7 +74,7 @@ export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
   const { _id: userId } = req.user;
   const photo = req.file;
-  const photoUrl = await getFileUrl(photo);
+  const photoUrl = await getFileUrlByFeatureFlag(photo, 'ENABLE_CLOUDINARY');
   const result = await updateContact(userId, contactId, {
     ...req.body,
     photo: photoUrl,
