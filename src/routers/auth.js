@@ -30,7 +30,6 @@ router.post(
 );
 
 router.post('/logout', ctrlWrapper(logoutUserController));
-export default router;
 
 router.post('/refresh', ctrlWrapper(refreshUsersSessionController));
 
@@ -44,5 +43,6 @@ router.post(
   '/reset-pwd',
   validateBody(resetPasswordSchema),
   ctrlWrapper(resetPasswordController),
-  ctrlWrapper(refreshUsersSessionController),
+  ctrlWrapper(logoutUserController),
 );
+export default router;
