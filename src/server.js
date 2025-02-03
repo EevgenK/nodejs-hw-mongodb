@@ -7,6 +7,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { domainHandler } from './middlewares/domainHandler.js';
 import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
+import { UPLOAD_DIR } from './constants/index.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 export const setupServer = () => {
@@ -16,6 +17,7 @@ export const setupServer = () => {
       type: ['application/json', 'application/vnd.api+json'],
     }),
   );
+
   app.use(cors());
   app.use(
     pino({
@@ -27,6 +29,7 @@ export const setupServer = () => {
   app.use(cookieParser());
   app.get('/', domainHandler);
   app.use(router);
+  app.use('/uploads', express.static(UPLOAD_DIR));
   app.use('*', notFoundHandler);
   app.use(errorHandler);
 
