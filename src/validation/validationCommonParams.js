@@ -17,11 +17,10 @@ const validationParams = {
 const makeStringWithSymbol = (el, symbol) =>
   validationParams[el].map((type) => `'${type}'`).join(` ${symbol} `);
 
-const createCommonStringValidation = (element, required = false) => {
+const createCommonStringValidation = (element, required) => {
   let validation = Joi.string()
     .min(validationParams.min)
     .max(validationParams.max)
-    .required()
     .messages(validationParams.stringTypeMessageGenerator(element));
   if (required) {
     validation = validation.required().messages({
