@@ -23,3 +23,7 @@ export const resetPasswordSchema = Joi.object({
   password: createCommonStringValidation('password', 'required'),
   token: Joi.string().required(),
 });
+/*SIGN WITH GOOGLE*/
+export const loginWithGoogleOAuthSchema = Joi.object({
+  code: Joi.string().required(),
+});

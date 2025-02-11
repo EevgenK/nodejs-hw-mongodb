@@ -27,7 +27,12 @@ export const CLOUDINARY = {
   API_SECRET: 'API_SECRET',
   ENABLE_CLOUDINARY: true,
 };
-
+/*FOR GOOGLE AUTH*/
+export const PATH_JSON = path.join(process.cwd(), 'google-oauth.json');
+export const GOOGLE_AUTH = {
+  GOOGLE_CLIENT_ID: 'GOOGLE_AUTH_CLIENT_ID',
+  GOOGLE_CLIENT_SECRET: 'GOOGLE_AUTH_CLIENT_SECRET',
+};
 /*FOR ROLES USAGE*/
 // export const JWT_SECRET = 'JWT_SECRET';
 // export const ROLES = {
