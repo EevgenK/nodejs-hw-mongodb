@@ -36,5 +36,5 @@ responses:
       application/json:
         schema:
           oneOf:
-            - $ref: '../../../components/responses/401/401-session-token.yaml'
-            - $ref: '../../../components/responses/401/401-session.yaml'
+            - $ref: '../../../components/responses/401-session-token.yaml'
+            - $ref: '../../../components/responses/401-session.yaml'

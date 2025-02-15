@@ -64,6 +64,6 @@ responses:
               type: object
               $ref: '../../../components/schemas/contact.yaml'
   '401':
-    $ref: '../../../components/responses/401/401-access-token.yaml'
+    $ref: '../../../components/responses/401-access-token.yaml'
   '404':
-    $ref: '../../../components/responses/404/404-contact.yaml'
+    $ref: '../../../components/responses/404-contact.yaml'

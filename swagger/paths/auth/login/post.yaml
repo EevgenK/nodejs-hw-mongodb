@@ -52,6 +52,6 @@ responses:
                   example: kErjOy4oMqDO8umSVA5zs1sDCGvoVu24Yy4Rq0lK
 
   '404':
-    $ref: '../../../components/responses/404/404-user.yaml'
+    $ref: '../../../components/responses/404-user.yaml'
   '400':
     $ref: '../../../components/responses/400.yaml'

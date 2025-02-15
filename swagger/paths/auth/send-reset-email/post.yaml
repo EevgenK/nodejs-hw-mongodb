@@ -38,7 +38,7 @@ responses:
               type: object
               example: {}
   '404':
-    $ref: ../../../components/responses/404/404-user.yaml
+    $ref: ../../../components/responses/404-user.yaml
   '500':
     description: Internal Server Error - Failed to send the email
     content:

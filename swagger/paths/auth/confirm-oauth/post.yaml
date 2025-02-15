@@ -44,4 +44,4 @@ responses:
                   example: kErjOy4oMqDO8umSVA5zs1sDCGvoVu24Yy4Rq0lK
 
   '401':
-    $ref: '../../../components/responses/401/401-access-token.yaml'
+    $ref: '../../../components/responses/401-access-token.yaml'
