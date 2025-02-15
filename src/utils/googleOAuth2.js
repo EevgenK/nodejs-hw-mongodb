@@ -26,6 +26,7 @@ export const validateCode = async (code) => {
   const ticket = await googleOAuthClient.verifyIdToken({
     idToken: response.tokens.id_token,
   });
+
   return ticket;
 };
 

@@ -1,0 +1,69 @@
+tags:
+  - Auth
+summary: Register User
+operationId: registerUser
+description: 'Register user'
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            description: 'User name'
+            type: string
+            example: 'John Snow'
+          email:
+            description: "User's email should have at least 'two' domain segments and have one of the following endings: ['com', 'net', 'ua'] "
+            type: string
+            example: 'example@domain.com'
+          password:
+            description:
+              The user's password can consist of both letters and numbers.
+              Min length >= 3;
+              Max length <= 20.
+            type: string
+            example: '123df123'
+responses:
+  '201':
+    description: Register user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully registered a user!
+            data:
+              type: object
+              required:
+                - _id
+                - name
+                - email
+              properties:
+                _id:
+                  type: string
+                  example: 65e4decdd286b30065d54af9
+                name:
+                  type: string
+                  example: 'Jon Snow'
+                email:
+                  type: string
+                  example: 'example@domain.com'
+  '409':
+    $ref: '../../../components/responses/409.yaml'
+  '400':
+    $ref: ../../../components/responses/400.yaml

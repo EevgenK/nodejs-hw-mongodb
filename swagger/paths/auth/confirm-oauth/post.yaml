@@ -1,0 +1,47 @@
+tags:
+  - Auth
+summary: Confirm with Google
+operationId: loginOrRegisterWithGoogle
+description: 'Confirm login or register with Google'
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - code
+        properties:
+          code:
+            description: 'Login Token'
+            type: string
+            example: '4/0ASVgi3KsuZ-YSlj5pArCaunUrsVzdpfpowM-jblSY743wFmFsC6Bq-buc6WZf0LRT2StkO'
+responses:
+  '200':
+    description: Successfully logged by Google OAuth
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully logged in via Google OAuth!
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: kErjOy4oMqDO8umSVA5zs1sDCGvoVu24Yy4Rq0lK
+
+  '401':
+    $ref: '../../../components/responses/401/401-access-token.yaml'
